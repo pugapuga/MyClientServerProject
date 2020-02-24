@@ -22,19 +22,9 @@ public class SocketServer {
             System.out.println("Waiting for the client request");
             //creating socket and waiting for client connection
             Socket socket = server.accept();
-
-            //read from socket to ObjectInputStream object
-            InputStream inputStream = socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            //convert ObjectInputStream object to String
-            String message = (String) objectInputStream.readObject();
-            System.out.println("Message Received: " + message);
-
-            if(message.equalsIgnoreCase("exit")) break;
+            SocketServerThread socketServerThread = new SocketServerThread(socket);
+            socketServerThread.start();
         }
-        System.out.println("Shutting down Socket server!!");
-        //close the ServerSocket object
-        server.close();
     }
 
 }

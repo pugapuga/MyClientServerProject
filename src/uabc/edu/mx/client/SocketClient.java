@@ -21,11 +21,16 @@ public class SocketClient {
 
         //write to socket using ObjectOutputStream
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-        System.out.println("Sending request to Socket Server");
         objectOutputStream.writeObject("Hola mundo");
+        System.out.println("Sending request to Socket Server: Hola mundo" );
+
+        objectInputStream = new ObjectInputStream(socket.getInputStream());
+        String message = (String) objectInputStream.readObject();
+        System.out.println("El servidor responde: " + message);
 
         //Close communications
         objectOutputStream.close();
+        objectInputStream.close();
         Thread.sleep(100);
     }
 }
